@@ -25,34 +25,26 @@ function isValidEmail(email) {
   return email_regex.test(String(email).toLocaleLowerCase());
 }
 
+// CHECK REQUIRED FIELDS //
+function checkRequired(input_arr) {
+  input_arr.forEach(function (input) {
+    if (input.value.trim() === '') {
+      // trim gets rid of white space //
+      showError(input, `${getFieldName(input)} is required`);
+    } else {
+      showSuccess(input);
+    }
+  });
+}
+
+//GET FIELD NAME //
+function getFieldName(input) {
+  return input.id.charAt(0).toUpperCase() + input.id.slice(1);
+}
+
 // EVENT LISTENERS //
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  if (username.value === '') {
-    showError(username, 'Username is required');
-  } else {
-    showSuccess(username);
-  }
-
-  if (email.value === '') {
-    showError(email, 'Email is required');
-  } else if (!isValidEmail(email.value)) {
-    // exclamation means NOT //
-    showError(email, 'Email is not valid');
-  } else {
-    showSuccess(email);
-  }
-
-  if (password.value === '') {
-    showError(password, 'Password is required');
-  } else {
-    showSuccess(password);
-  }
-
-  if (confirm_password.value === '') {
-    showError(confirm_password, 'confirm_password is required');
-  } else {
-    showSuccess(confirm_password);
-  }
+  checkRequired([username, email, password, confirm_password]);
 });
