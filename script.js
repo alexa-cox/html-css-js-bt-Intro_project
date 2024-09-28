@@ -20,9 +20,13 @@ function showSuccess(input) {
 }
 
 //CHECK EMAIL IS VALID //
-function isValidEmail(email) {
+function checkEmail(input) {
   const email_regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // found by googling js email regex //
-  return email_regex.test(String(email).toLocaleLowerCase());
+  if (!email_regex.test(input.value.trim())) {
+    showError(input, 'Email is not valid');
+  } else {
+    showSuccess(input);
+  }
 }
 
 // CHECK REQUIRED FIELDS //
@@ -37,6 +41,32 @@ function checkRequired(input_arr) {
   });
 }
 
+//CHECK INPUT LENGTH //
+function checkLength(input, min, max) {
+  if (input.value.length < min) {
+    showError(
+      input,
+      `${getFieldName(input)} must be at least ${min} characters`
+    );
+  } else if (input.value.length > max) {
+    showError(
+      input,
+      `${getFieldName(input)} must be less than ${max} characters`
+    );
+  } else {
+    showSuccess(input);
+  }
+}
+
+//CHECK PASSWORDS MATCH //
+function checkPasswordMatch(input1, input2) {
+  if (input1.value !== input2.value) {
+    showError(input2, 'Passwords do not match');
+  } else {
+    showSuccess(input);
+  }
+}
+
 //GET FIELD NAME //
 function getFieldName(input) {
   return input.id.charAt(0).toUpperCase() + input.id.slice(1);
@@ -47,4 +77,8 @@ form.addEventListener('submit', function (e) {
   e.preventDefault();
 
   checkRequired([username, email, password, confirm_password]);
+  checkLength(username, 3, 15);
+  checkLength(password, 6, 25);
+  checkEmail(email);
+  checkPasswordMatch(password, confirm_password);
 });
