@@ -1,4 +1,96 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+:root {
+  /* this is how you define scope of custom variables */
+  --success-color: #2ecc71; /* the double dash is how you name the custom variable */
+  --error-color: #e74c3c;
+}
+
+* {
+  box-sizing: border-box; /* don't want any padding to affect the width */
+}
+
 body {
-	background-color: #e5e7eb;
-	font-family: Arial, Helvetica, sans-serif;
+  background-color: #f9fafb;
+  font-family: 'Open Sans', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+}
+
+.container {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+.form {
+  padding: 30px 40px;
+}
+
+h2 {
+  text-align: center;
+  margin: 0 0 20px;
+}
+
+.form_control {
+  margin-bottom: 10px;
+  padding-bottom: 20px;
+  position: relative; /* relative because an element within it is absolute and to position absolute the parent must be relative */
+}
+
+.form_control label {
+  color: #777;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form_control input {
+  border: 2px solid #f0f0f0;
+  border-radius: 4px;
+  display: block;
+  width: 100%;
+  padding: 10px;
+  font-size: 14px;
+}
+
+.form_control input:focus {
+  outline: 0;
+  border-color: #777;
+}
+
+.form_control.success input {
+  border-color: var(
+    --success-color
+  ); /* var() is the function to use the custom variable */
+}
+
+.form_control.error input {
+  border-color: var(--error-color);
+}
+
+.form_control small {
+  color: var(--error-color);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  visibility: hidden;
+}
+
+.form_control.error small {
+  visibility: visible;
+}
+
+.form button {
+  cursor: pointer;
+  background-color: #3498db;
+  border: 2px solid #3498db;
+  border-radius: 4px;
+  color: #fff;
+  display: block;
+  font-size: 16px;
+  padding: 10px;
+  margin-top: 20px;
+  width: 100%;
 }
