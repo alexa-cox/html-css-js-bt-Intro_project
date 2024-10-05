@@ -30,13 +30,12 @@ function checkEmail(input) {
 }
 
 // CHECK REQUIRED FIELDS //
-function checkRequired(input_arr) {
-  input_arr.forEach(function (input) {
-    if (input.value.trim() === '') {
-      // trim gets rid of white space //
-      showError(input, `${getFieldName(input)} is required`);
+function checkRequiredFields(inputArr) {
+  inputArr.forEach((input) => {
+    if (input.field.value.trim() === '') {
+      showError(input.field, `${input.label} is required`); //makes it so a custom label can be used rather than forcing the field name //
     } else {
-      showSuccess(input);
+      showSuccess(input.field);
     }
   });
 }
@@ -76,7 +75,12 @@ function getFieldName(input) {
 form.addEventListener('submit', function (e) {
   e.preventDefault();
 
-  checkRequired([username, email, password, confirm_password]);
+  checkRequiredFields([
+    { field: username, label: 'Username' },
+    { field: email, label: 'Email' },
+    { field: password, label: 'Password' },
+    { field: confirm_password, label: 'Password confirmation' },
+  ]);
   checkLength(username, 3, 15);
   checkLength(password, 6, 25);
   checkEmail(email);
